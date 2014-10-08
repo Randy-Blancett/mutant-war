@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="mutant_war" defaultIdMethod="native">
+	<table name="users" phpName="User"
+		namespace="\midnightPublishing\mutantWar\database">
+		<column name="user_name" type="varchar" phpName="userName"
+			required="true" primaryKey="true" size="20" />
+		<column name="password" type="varchar" size="200" required="true" />
+		<column name="first_name" type="varchar" size="20" phpName="firstName"
+			required="false" />
+		<column name="last_name" type="varchar" size="20" phpName="lastName"
+			required="false" />
+	</table>
+</database>

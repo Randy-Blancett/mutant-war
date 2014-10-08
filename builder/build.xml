@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Mutant War" default="settings" basedir="."
+	description="A Game builder">
+
+	<property name="srcDir" value="${project.basedir}/../src" />
+	<property name="srcPhpDir" value="${project.basedir}/../src/main/php" />
+	<property name="buildDir" value="${project.basedir}/../build" />
+	<property name="targetDir" value="${project.basedir}/../target" />
+	<property name="buildLibDir" value="${project.basedir}/../builder/libs" />
+	<property name="testDir" value="${srcDir}/test" />
+
+	<fileset dir="${testDir}" id="tests">
+		<include name="**/Test*.php" />
+	</fileset>
+
+	<fileset dir="${srcPhpDir}" id="phpSrc">
+		<include name="midnightPublishing/**/*.php" />
+	</fileset>
+
+	<target name="cleanup">
+		<delete dir="${targetDir}" />
+	</target>
+
+	<!-- Run PHP lint on all of the source code -->
+	<target name="lint" depends="setup">
+		<phplint tofile="${targetDir}/lint/output.log">
+			<fileset refid="tests" />
+		</phplint>
+	</target>
+
+	<target name="setup" depends="cleanup">
+		<mkdir dir="${targetDir}" />
+		<mkdir dir="${targetDir}/coverage/coverage_db" />
+		<mkdir dir="${targetDir}/lint/" />
+		<mkdir dir="${targetDir}/reports/coverage-report" />
+		<adhoc><![CDATA[
+		    require_once '${srcPhpDir}/MP_Autoloader.php';
+  		]]></adhoc>
+	</target>
+
+	<target name="settings">
+		<echo msg="basedir ${project.basedir}" />
+		<echo msg="buildDir ${buildDir}" />
+		<echo msg="buildLibDir ${buildLibDir}" />
+		<echo msg="srcDir: ${srcDir}" />
+		<echo msg="srcPhpDir ${srcDir}" />
+		<echo msg="targetDir ${srcPhpDir}" />
+		<echo msg="testDir ${testDir}" />
+	</target>
+
+	<target name="test" depends="lint,settings">
+		<coverage-setup database="${targetDir}/coverage/coverage_db/coverage.db">
+			<fileset refid="phpSrc" />
+		</coverage-setup>
+
+		<phpunit printsummary="true" haltonfailure="true"
+			codecoverage="true" pharlocation="${buildLibDir}/phpunit.phar"
+			bootstrap="${testDir}/bootstrap.php">
+			<formatter type="clover" usefile="true" todir="${targetDir}/coverage"
+				outfile="coverage.log" />
+			<batchtest>
+				<fileset refid="tests" />
+			</batchtest>
+		</phpunit>
+
+		<phpunitreport infile="${targetDir}/reports/logfile.xml"
+			styledir="/usr/share/php/data/phing/etc/" format="frames"
+			todir="${targetDir}/reports" />
+
+		<coverage-report outfile="${targetDir}/reports/coverage-report/coverage.xml"
+			classpath="${srcPhpDir}">
+			<report styledir="/usr/share/php/data/phing/etc/" todir="${targetDir}/reports/coverage-report" />
+		</coverage-report>
+	</target>
+</project>
