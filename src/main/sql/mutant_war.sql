@@ -4,16 +4,18 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ---------------------------------------------------------------------
--- scientist
+-- users
 -- ---------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `scientist`;
+DROP TABLE IF EXISTS `users`;
 
-CREATE TABLE `scientist`
+CREATE TABLE `users`
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `user_name` VARCHAR(20) NOT NULL,
-    PRIMARY KEY (`id`)
+    `password` VARCHAR(200) NOT NULL,
+    `first_name` VARCHAR(20),
+    `last_name` VARCHAR(20),
+    PRIMARY KEY (`user_name`)
 ) ENGINE=InnoDB;
 
 # This restores the fkey checks, after having unset them earlier

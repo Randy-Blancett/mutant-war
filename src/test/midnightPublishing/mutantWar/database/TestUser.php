@@ -2,7 +2,7 @@
 require_once ("MP_Autoloader.php");
 
 use midnightPublishing\mutantWar\database\User as User;
-class TestScientist extends \PHPUnit_Framework_TestCase
+class TestUser extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {

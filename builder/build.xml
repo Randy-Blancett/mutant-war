@@ -23,6 +23,9 @@
 
 	<!-- Run PHP lint on all of the source code -->
 	<target name="lint" depends="setup">
+		<!-- Build Propoel ORM -->
+		<exec command="${buildLibDir}/propel2/bin/propel build" dir="${srcDir}/xml/database/" />
+
 		<phplint tofile="${targetDir}/lint/output.log">
 			<fileset refid="tests" />
 		</phplint>
