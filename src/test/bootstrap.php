@@ -19,15 +19,15 @@ $serviceContainer->setConnectionManager ( CON_NAME, $manager );
 
 $objCon = Propel::getConnection ( CON_NAME );
 
-print_r ( $objCon );
+// print_r ( $objCon );
 
-// $objCon->exec ( "show" );
-$tablesquery = $objCon->exec ( "CREATE DATABASE `test`;" );
-$tablesquery = $objCon->query ( "SELECT name FROM sqlite_master WHERE type='table';" );
+// // $objCon->exec ( "show" );
+// $tablesquery = $objCon->exec ( "CREATE DATABASE `test`;" );
+// $tablesquery = $objCon->query ( "SELECT name FROM sqlite_master WHERE type='table';" );
 
-while ( $table = $tablesquery->fetch ( SQLITE3_ASSOC ) )
-{
-    echo $table ['name'] . '<br />';
-}
+// while ( $table = $tablesquery->fetch ( SQLITE3_ASSOC ) )
+// {
+//     echo $table ['name'] . '<br />';
+// }
 // $objCon->;
 

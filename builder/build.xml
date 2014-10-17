@@ -36,6 +36,7 @@
 		<mkdir dir="${targetDir}/coverage/coverage_db" />
 		<mkdir dir="${targetDir}/lint/" />
 		<mkdir dir="${targetDir}/reports/coverage-report" />
+		<touch file="${targetDir}/reports/logfile.xml" />
 		<adhoc><![CDATA[
 		    require_once '${srcPhpDir}/MP_Autoloader.php';
   		]]></adhoc>
@@ -61,14 +62,15 @@
 			bootstrap="${testDir}/bootstrap.php">
 			<formatter type="clover" usefile="true" todir="${targetDir}/coverage"
 				outfile="coverage.log" />
+			<formatter type="xml" todir="${targetDir}/coverage" outfile="logfile.xml"/>
 			<batchtest>
 				<fileset refid="tests" />
 			</batchtest>
 		</phpunit>
 
-		<phpunitreport infile="${targetDir}/reports/logfile.xml"
+		<phpunitreport infile="${targetDir}/coverage/logfile.xml"
 			styledir="/usr/share/php/data/phing/etc/" format="frames"
-			todir="${targetDir}/reports" />
+			todir="${targetDir}/reports/" />
 
 		<coverage-report outfile="${targetDir}/reports/coverage-report/coverage.xml"
 			classpath="${srcPhpDir}">
