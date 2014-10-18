@@ -154,8 +154,8 @@ if(!defined("MP_AUTOLOADER_SET")) {
 		// 		print("In Autoloader for $str_ClassName\n");
 		if(!PSR0Autoloader::autoload($str_ClassName))
 		{
-			require_once("propel/Propel.php");
-			Propel::autoload($str_ClassName);
+// 			require_once("propel/Propel.php");
+// 			Propel::autoload($str_ClassName);
 		}
 	}
 

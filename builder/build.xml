@@ -25,6 +25,8 @@
 	<target name="lint" depends="setup">
 		<!-- Build Propoel ORM -->
 		<exec command="${buildLibDir}/propel2/bin/propel build" dir="${srcDir}/xml/database/" />
+		<exec command="${buildLibDir}/propel2/bin/propel config:convert"
+			dir="${srcDir}/xml/database/" />
 
 		<phplint tofile="${targetDir}/lint/output.log">
 			<fileset refid="tests" />
@@ -62,7 +64,8 @@
 			bootstrap="${testDir}/bootstrap.php">
 			<formatter type="clover" usefile="true" todir="${targetDir}/coverage"
 				outfile="coverage.log" />
-			<formatter type="xml" todir="${targetDir}/coverage" outfile="logfile.xml"/>
+			<formatter type="xml" todir="${targetDir}/coverage"
+				outfile="logfile.xml" />
 			<batchtest>
 				<fileset refid="tests" />
 			</batchtest>

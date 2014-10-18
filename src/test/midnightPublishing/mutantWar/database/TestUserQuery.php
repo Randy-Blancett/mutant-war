@@ -3,6 +3,7 @@ require_once ("MP_Autoloader.php");
 
 use midnightPublishing\mutantWar\database\UserQuery as UserQuery;
 use midnightPublishing\mutantWar\database\User as User;
+use Propel\Runtime\Propel as Propel;
 class TestUserQuery extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
@@ -11,31 +12,20 @@ class TestUserQuery extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf ( 'midnightPublishing\mutantWar\database\UserQuery', $obj );
         $this->assertInstanceOf ( 'midnightPublishing\mutantWar\database\Base\UserQuery', $obj );
         
-        $this->getConnection ();
-        $this->getDataSet ();
+        $con = Propel::getWriteConnection ( "mutant_war" );
+        $sql = "CREATE TABLE `users` (`user_name` VARCHAR(20) NOT NULL, `password` VARCHAR(200) NOT NULL, `first_name` VARCHAR(20), `last_name` VARCHAR(20), PRIMARY KEY (`user_name`)) ";
+        $stmt = $con->prepare ( $sql );
+        $stmt->execute ();
         
         $user = new User ();
+        $user->setuserName ( "t123" );
         $user->setfirstName ( "Randy" );
         $user->setlastName ( "B" );
+        $user->setPassword ( "p1" );
         $user->save ();
-    }
-    
-    /**
-     *
-     * @return PHPUnit_Extensions_Database_DB_IDatabaseConnection
-     */
-    public function getConnection()
-    {
-        $objCon = Propel::getConnection ( 'mutant_war' );
-        return $this->createDefaultDBConnection ( $objCon, ':memory:' );
-    }
-    
-    /**
-     *
-     * @return PHPUnit_Extensions_Database_DataSet_IDataSet
-     */
-    public function getDataSet()
-    {
-        return $this->createFlatXMLDataSet ( dirname ( __FILE__ ) . '/tst.xml' );
+        
+        $sql = "SELECT * from users";
+        $stmt = $con->prepare ( $sql );
+        print_r ( $stmt->fetchAll () );
     }
 }
