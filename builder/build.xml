@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Mutant War" default="settings" basedir="."
+<project name="Mutant War" default="build" basedir="."
 	description="A Game builder">
 
 	<property name="srcDir" value="${project.basedir}/../src" />
@@ -17,8 +17,14 @@
 		<include name="midnightPublishing/**/*.php" />
 	</fileset>
 
+	<target name="build" depends="test">
+		<echo msg="Creating phar file" />
+		<exec command="php create-phar.php" dir="${project.basedir}" />
+	</target>
+
 	<target name="cleanup">
 		<delete dir="${targetDir}" />
+		<delete dir="${buildDir}" />
 	</target>
 
 	<!-- Run PHP lint on all of the source code -->
@@ -37,7 +43,9 @@
 		<mkdir dir="${targetDir}" />
 		<mkdir dir="${targetDir}/coverage/coverage_db" />
 		<mkdir dir="${targetDir}/lint/" />
+		<mkdir dir="${targetDir}/reports/phpUnit" />
 		<mkdir dir="${targetDir}/reports/coverage-report" />
+		<mkdir dir="${buildDir}" />
 		<touch file="${targetDir}/reports/logfile.xml" />
 		<adhoc><![CDATA[
 		    require_once '${srcPhpDir}/MP_Autoloader.php';
@@ -73,7 +81,7 @@
 
 		<phpunitreport infile="${targetDir}/coverage/logfile.xml"
 			styledir="/usr/share/php/data/phing/etc/" format="frames"
-			todir="${targetDir}/reports/" />
+			todir="${targetDir}/reports/phpUnit" />
 
 		<coverage-report outfile="${targetDir}/reports/coverage-report/coverage.xml"
 			classpath="${srcPhpDir}">

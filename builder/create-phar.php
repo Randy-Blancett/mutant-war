@@ -1,7 +1,7 @@
 <?php
 // Constants
 $phpSrc = __DIR__ . "/../src/main/php/";
-$webSrc = __DIR__ . "/../src/www/";
+$webSrc = __DIR__ . "/../src/main/www/";
 $buildDir = __DIR__ . "/../build";
 
 // Create Phar

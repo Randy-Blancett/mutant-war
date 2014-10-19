@@ -2,13 +2,24 @@
 require_once ("MP_Autoloader.php");
 
 use midnightPublishing\mutantWar\database\User as User;
-class TestUser extends \PHPUnit_Framework_TestCase
+use midnightPublishing\mutantWar\DBHandler;
+class TestUser extends DBHandler
 {
     public function testConstructor()
     {
         $obj = new User ();
         $this->assertInstanceOf ( 'midnightPublishing\mutantWar\database\User', $obj );
         $this->assertInstanceOf ( 'midnightPublishing\mutantWar\database\Base\User', $obj );
+    }
+    public function testDelete()
+    {
+        $obj = new User ();
+        $obj->setfirstName ( "fName" );
+        $obj->setlastName ( "lName" );
+        $obj->setuserName ( "UserName 1" );
+        $obj->setPassword ( "Password1" );
+        $obj->save ();
+        $obj->delete ();
     }
     public function testSetterGetter()
     {
@@ -25,5 +36,14 @@ class TestUser extends \PHPUnit_Framework_TestCase
         
         $obj->setPassword ( "Password1" );
         $this->assertEquals ( "Password1", $obj->getPassword () );
+    }
+    public function testSave()
+    {
+        $obj = new User ();
+        $obj->setfirstName ( "fName" );
+        $obj->setlastName ( "lName" );
+        $obj->setuserName ( "UserName 1" );
+        $obj->setPassword ( "Password1" );
+        $obj->save ();
     }
 }
