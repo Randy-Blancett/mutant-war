@@ -4,6 +4,7 @@
 
 	<property name="srcDir" value="${project.basedir}/../src" />
 	<property name="srcPhpDir" value="${project.basedir}/../src/main/php" />
+	<property name="srcWWWDir" value="${project.basedir}/../www" />
 	<property name="buildDir" value="${project.basedir}/../build" />
 	<property name="targetDir" value="${project.basedir}/../target" />
 	<property name="buildLibDir" value="${project.basedir}/../builder/libs" />
@@ -17,9 +18,16 @@
 		<include name="midnightPublishing/**/*.php" />
 	</fileset>
 
+	<fileset dir="${srcWWWDir}" id="wwwSrc">
+		<include name="**/*.php" />
+	</fileset>
+
 	<target name="build" depends="test">
 		<echo msg="Creating phar file" />
 		<exec command="php create-phar.php" dir="${project.basedir}" />
+		<copy todir="${buildDir}">
+			<fileset refid="wwwSrc" />
+		</copy>
 	</target>
 
 	<target name="cleanup">
