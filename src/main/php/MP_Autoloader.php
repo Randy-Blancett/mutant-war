@@ -66,7 +66,6 @@ if (! defined ( "MP_AUTOLOADER_SET" ))
         public static function autoload(
                                         $str_ClassName)
         {
-            print ("PSR0 AutoLoad '$str_ClassName'\n") ;
             if (class_exists ( $str_ClassName ) || interface_exists ( $str_ClassName ))
             {
                 return true;
@@ -75,15 +74,13 @@ if (! defined ( "MP_AUTOLOADER_SET" ))
             // convert the classname into a filename on disk
             $str_ClassFile = self::normalisePath ( $str_ClassName ) . '.php';
             
-            print ("PSR0: " . $str_ClassFile) ;
-            
             return self::includeFile ( $str_ClassFile );
         }
         public static function includeFile(
                                         $str_FileName)
         {
-            // print("PSR0 includeFile '$str_FileName'\n");
             $arr_PathToSearch = explode ( PATH_SEPARATOR, get_include_path () );
+            $arr_PathToSearch [] = "phar://MutantWar.phar";
             
             // keep track of what we have tried; this info may help other
             // devs debug their code
@@ -91,7 +88,6 @@ if (! defined ( "MP_AUTOLOADER_SET" ))
             
             foreach ( $arr_PathToSearch as $str_SearchPath )
             {
-                // print("Searching Path '$str_SearchPath'\n");
                 $str_File2Load = $str_SearchPath . '/' . $str_FileName;
                 // var_dump($str_File2Load);
                 if (! file_exists ( $str_File2Load ))
@@ -102,7 +98,6 @@ if (! defined ( "MP_AUTOLOADER_SET" ))
                 require_once ($str_File2Load);
                 return TRUE;
             }
-            // print_r($arr_FailedFiles);
             
             // if we get here, we could not find the requested file
             // we do not die() or throw an exception, because there may
@@ -157,7 +152,6 @@ if (! defined ( "MP_AUTOLOADER_SET" ))
     function mpAutoLoader(
                         $str_ClassName)
     {
-        // print("In Autoloader for $str_ClassName\n");
         if (! PSR0Autoloader::autoload ( $str_ClassName ))
         {
             // require_once("propel/Propel.php");
@@ -165,12 +159,10 @@ if (! defined ( "MP_AUTOLOADER_SET" ))
         }
     }
     
-    print ("Setting UP Autoload\n") ;
-    
     if (! defined ( "SET_PATH" ))
     {
         define ( "SET_PATH", true );
-        set_include_path ( '.'. PATH_SEPARATOR . get_include_path () );
+        set_include_path ( '.' . PATH_SEPARATOR . get_include_path () );
     }
     
     spl_autoload_register ( 'mpAutoLoader' );
