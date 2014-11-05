@@ -20,6 +20,7 @@
 
 	<fileset dir="${srcWWWDir}" id="wwwSrc">
 		<include name="**/*.php" />
+		<include name="**/*.htaccess" />
 	</fileset>
 
 	<target name="build" depends="test">
