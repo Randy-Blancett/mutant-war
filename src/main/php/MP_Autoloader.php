@@ -81,6 +81,8 @@ if (! defined ( "MP_AUTOLOADER_SET" ))
         {
             $arr_PathToSearch = explode ( PATH_SEPARATOR, get_include_path () );
             $arr_PathToSearch [] = "phar://MutantWar.phar";
+            // Flip the array so the PHAR is searched first since its files are prefered
+            $arr_PathToSearch = array_reverse ( $arr_PathToSearch );
             
             // keep track of what we have tried; this info may help other
             // devs debug their code
@@ -108,9 +110,7 @@ if (! defined ( "MP_AUTOLOADER_SET" ))
                                         $str_Dir)
         {
             $str_Dir = realpath ( $str_Dir );
-            
             self::dontSearchIn ( $str_Dir );
-            
             // add the new directory to the front of the path
             set_include_path ( $str_Dir . PATH_SEPARATOR . get_include_path () );
         }
@@ -118,7 +118,6 @@ if (! defined ( "MP_AUTOLOADER_SET" ))
                                         $str_Dir)
         {
             $str_Dir = realpath ( $str_Dir );
-            
             self::dontSearchIn ( $str_Dir );
             
             // add the new directory to the end of the path
@@ -153,10 +152,7 @@ if (! defined ( "MP_AUTOLOADER_SET" ))
                         $str_ClassName)
     {
         if (! PSR0Autoloader::autoload ( $str_ClassName ))
-        {
-            // require_once("propel/Propel.php");
-            // Propel::autoload($str_ClassName);
-        }
+        {}
     }
     
     if (! defined ( "SET_PATH" ))

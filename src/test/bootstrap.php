@@ -1,5 +1,6 @@
 <?php
 define ( 'BASE_PATH', dirname ( dirname ( __FILE__ ) ) . "/main/php/" );
+define ( 'WWW_PATH', dirname ( dirname ( __FILE__ ) ) . "/main/www/" );
 define ( 'TEST_PATH', dirname ( __FILE__ ) );
 define ( 'CON_NAME', "mutant_war" );
 

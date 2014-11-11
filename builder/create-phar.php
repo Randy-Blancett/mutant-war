@@ -11,7 +11,7 @@ $p->startBuffering ();
 // set the Phar file stub
 // the file stub is merely a small segment of code that gets run initially when the Phar file is loaded,
 // and it always ends with a __HALT_COMPILER()
-$p->setStub ( '<?php Phar::mapPhar(); include "phar://MutantWar.phar/index.php"; __HALT_COMPILER(); ?>' );
+$p->setStub ( '<?php Phar::mapPhar(); include "phar://MutantWar.phar/flowMaster.php"; __HALT_COMPILER(); ?>' );
 
 // Adding files to the archive
 $p ['text.txt'] = 'This is a text file';
