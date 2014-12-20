@@ -9,6 +9,7 @@
 	<property name="targetDir" value="${project.basedir}/../target" />
 	<property name="buildLibDir" value="${project.basedir}/../builder/libs" />
 	<property name="testDir" value="${srcDir}/test" />
+	<property name="karmaBin" value="/home/darkowl/node_modules/karma/bin/karma start karma.config.js" />
 
 	<fileset dir="${testDir}" id="tests">
 		<include name="**/Test*.php" />
@@ -23,7 +24,7 @@
 		<include name="**/*.htaccess" />
 	</fileset>
 
-	<target name="build" depends="test">
+	<target name="build" depends="test,karma">
 		<echo msg="Creating phar file" />
 		<exec command="php create-phar.php" dir="${project.basedir}" />
 		<copy todir="${buildDir}">
@@ -59,6 +60,10 @@
 		<adhoc><![CDATA[
 		    require_once '${srcPhpDir}/MP_Autoloader.php';
   		]]></adhoc>
+	</target>
+	
+	<target name="karma" depends="cleanup">
+		<exec command="${karmaBin} start karma.config.js --single-run" />
 	</target>
 
 	<target name="settings">
