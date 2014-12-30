@@ -9,7 +9,7 @@
 	<property name="targetDir" value="${project.basedir}/../target" />
 	<property name="buildLibDir" value="${project.basedir}/../builder/libs" />
 	<property name="testDir" value="${srcDir}/test" />
-	<property name="karmaBin" value="/home/darkowl/node_modules/karma/bin/karma start karma.config.js" />
+	<property name="karmaBin" value="/home/darkowl/node_modules/karma/bin/karma" />
 
 	<fileset dir="${testDir}" id="tests">
 		<include name="**/Test*.php" />

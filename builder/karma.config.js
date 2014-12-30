@@ -4,18 +4,21 @@
 module.exports = function(config) {
 	config.set({
 
-		// base path that will be used to resolve all patterns (eg. files,
+		// base path that will be used to resolve all patterns (eg.
+		// files,
 		// exclude)
 		basePath : '',
 
 		// frameworks to use
-		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+		// available frameworks:
+		// https://npmjs.org/browse/keyword/karma-adapter
 		frameworks : [ 'jasmine' ],
 
 		// list of files / patterns to load in the browser
-		files : [
-		// '../src/main/www/js/**/*.js',
-		'../src/test/js/**/*.js' ],
+		files : [ '../src/main/www/js/angular/angular.min.js',
+				'../src/main/www/js/angular/angular-mocks.js',
+				'../src/main/www/js/mutantWar/**/*.js',
+				'../src/test/js/**/*.js' ],
 
 		// list of files to exclude
 		exclude : [],
@@ -23,12 +26,15 @@ module.exports = function(config) {
 		// preprocess matching files before serving them to the browser
 		// available preprocessors:
 		// https://npmjs.org/browse/keyword/karma-preprocessor
-		preprocessors : {},
+		preprocessors : {
+			'../src/main/www/js/mutantWar/**/*.js' : 'coverage'
+		},
 
 		// test results reporter to use
 		// possible values: 'dots', 'progress'
-		// available reporters: https://npmjs.org/browse/keyword/karma-reporter
-		reporters : [ 'progress', 'html', 'junit' ],
+		// available reporters:
+		// https://npmjs.org/browse/keyword/karma-reporter
+		reporters : [ 'progress', 'html', 'junit', 'coverage' ],
 
 		htmlReporter : {
 			outputFile : '../target/reports/karma/units.html'
@@ -37,6 +43,12 @@ module.exports = function(config) {
 		junitReporter : {
 			outputFile : '../target/reports/karma/test-results.xml',
 			suite : ''
+		},
+
+		coverageReporter : {
+			type : 'html',
+			dir : '../target/reports/karma/',
+			file : 'coverage.html'
 		},
 
 		// web server port
@@ -50,7 +62,8 @@ module.exports = function(config) {
 		// config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
 		logLevel : config.LOG_INFO,
 
-		// enable / disable watching file and executing tests whenever any file
+		// enable / disable watching file and executing tests whenever
+		// any file
 		// changes
 		autoWatch : false,
 

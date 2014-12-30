@@ -1,4 +1,4 @@
-angular.module("mutantWar", []).controller("registrationCtrl",
+angular.module('mutantWar', []).controller('registrationCtrl',
 		function($scope) {
 			$scope.registration = {};
 			$scope.registration.user = {};
