@@ -7,4 +7,8 @@ angular.module('mutantWar', []).controller('registrationCtrl',
 			$scope.alert = function(registration) {
 				alert("run alert");
 			};
+
+			$scope.reset = function() {
+				$scope.registration.user.username = "";
+			};
 		});

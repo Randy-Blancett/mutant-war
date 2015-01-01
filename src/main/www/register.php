@@ -45,6 +45,8 @@
 					</div>
 				</div>
 				<div class="col-xs-offset-2 col-xs-10">
+					<button ng-click="reset()" type="submit"
+						class="btn btn-default" ng-disabled="registrationForm.$invalid">Reset</button>
 					<button ng-click="alert(registration.user)" type="submit"
 						class="btn btn-default" ng-disabled="registrationForm.$invalid">Create
 						Account</button>
