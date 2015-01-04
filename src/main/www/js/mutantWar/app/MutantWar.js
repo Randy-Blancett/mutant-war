@@ -1,1 +1,1 @@
-var app = angular.module("mutantWar", ["ngMessages"]);
+var mutantWar = angular.module("mutantWar", ["ngMessages"]);

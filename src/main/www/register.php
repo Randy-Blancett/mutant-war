@@ -2,9 +2,10 @@
 <head>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="css/bootstrap.min" />
-<script src="js/angular/angular"></script>
+<script src="js/angular/angular.min"></script>
 <script src="js/angular/angular-messages.min"></script>
 <script src="js/mutantWar/app/MutantWar"></script>
+<script src="js/mutantWar/directive/validationPassword"></script>
 <script src="js/mutantWar/model/UserRegistration"></script>
 
 </head>
@@ -22,7 +23,7 @@
 							id="username" ng-model="registration.user.username"
 							placeholder="User Name" required />
 						<div ng-messages="registrationForm.username.$error"
-							ng-messages-include="html/mutantWar/messages"></div>
+							ng-messages-include="./messages" />
 					</div>
 				</div>
 				<div class="form-group">
@@ -52,10 +53,6 @@
 					<button ng-click="reset()" type="reset" class="btn btn-default">Reset</button>
 					<button type="submit" class="btn btn-primary"
 						ng-disabled="registrationForm.$invalid">Create Account</button>
-
-					<!-- 					<button ng-click="alert(registration.user)" type="submit" -->
-					<!-- 						class="btn btn-default" ng-disabled="registrationForm.$invalid">Create -->
-					<!-- 						Account</button> -->
 				</div>
 
 			</form>

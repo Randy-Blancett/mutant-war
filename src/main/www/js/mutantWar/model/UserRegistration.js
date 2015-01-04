@@ -32,4 +32,4 @@ var RegistrationCtrl = function($scope) {
 
 };
 
-app.controller("registrationCtrl", RegistrationCtrl);
+mutantWar.controller("registrationCtrl", RegistrationCtrl);
