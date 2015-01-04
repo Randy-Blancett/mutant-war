@@ -15,7 +15,7 @@ module.exports = function(config) {
 		frameworks : [ 'jasmine' ],
 
 		// list of files / patterns to load in the browser
-		files : [ '../src/main/www/js/angular/angular.min.js',
+		files : [ '../src/main/www/js/angular/angular.min.js','../src/main/www/js/angular/angular-messages.min.js',
 				'../src/main/www/js/angular/angular-mocks.js',
 				'../src/main/www/js/mutantWar/**/*.js',
 				'../src/test/js/**/*.js' ],

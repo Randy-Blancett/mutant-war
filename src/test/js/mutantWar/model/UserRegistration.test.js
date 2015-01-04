@@ -1,25 +1,28 @@
 describe('registrationCtrl', function() {
-	beforeEach(module('mutantWar'));
 
-	// var ctrl, scope;
-	// // inject the $controller and $rootScope services
-	// // in the beforeEach block
-	// beforeEach(inject(function($controller, $rootScope) {
-	// // Create a new scope that's a child of the $rootScope
+	// var scope, $location, createController;
+	//
+	// beforeEach(inject(function ($rootScope, $controller _$location_) {
+	// $location = _$location_;
 	// scope = $rootScope.$new();
-	// // Create the controller
-	// ctrl = $controller('registrationCtrl', {
-	// $scope : $scope
+	//
+	// createController = function() {
+	// return $controller('registrationCtrl', {
+	// '$scope': scope
 	// });
+	// };
 	// }));
 	//
-	// it('should create $scope.greeting when calling sayHello', function() {
-	// // expect(scope.alert).toBeUndefined();
-	// scope.alert();
-	// // expect(scope.greeting).toEqual("Hello Ari");
-	// });
-
+	// // it('should have a method to check if the path is active', function() {
+	// // var controller = createController();
+	// //// $location.path('/about');
+	// //// expect($location.path()).toBe('/about');
+	// //// expect(scope.isActive('/about')).toBe(true);
+	// //// expect(scope.isActive('/contact')).toBe(false);
+	// // });
+	//	
 	var $controller;
+	beforeEach(module('mutantWar'));
 
 	beforeEach(inject(function(_$controller_) {
 		// The injector unwraps the underscores (_) from around the parameter
@@ -34,7 +37,7 @@ describe('registrationCtrl', function() {
 					var controller = $controller('registrationCtrl', {
 						$scope : $scope
 					});
-					$scope.alert();
+					controller.alert();
 				});
 	});
 
@@ -45,11 +48,11 @@ describe('registrationCtrl', function() {
 				$scope : $scope
 			});
 
-			$scope.registration.user.username = "UserName1";
-			expect($scope.registration.user.username).toEqual("UserName1");
-			
-			$scope.reset();
-			expect($scope.registration.user.username).toEqual("");
+			controller.user.username = "UserName1";
+			expect(controller.user.username).toEqual("UserName1");
+
+			controller.reset();
+			expect(controller.user.username).toEqual("");
 		});
 	});
 });
