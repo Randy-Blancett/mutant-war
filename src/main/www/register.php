@@ -6,21 +6,21 @@
 <script src="js/angular/angular-messages.min"></script>
 <script src="js/mutantWar/app/MutantWar"></script>
 <script src="js/mutantWar/directive/CompareTo"></script>
-<script src="js/mutantWar/model/UserRegistration"></script>
+<script src="js/mutantWar/controller/UserRegistration"></script>
 
 </head>
 <body ng-controller="registrationCtrl as registration">
 	<div class="container-fluid">
 		<h1>Register for Mutant Wars!!!</h1>
-		<h3>{{ registration.message }}</h3>
+		<h3>{{ registrationForm.message }}</h3>
 		<div>
 			<form name="registrationForm" role="form" class="form-horizontal"
-				novalidate ng-submit="registration.submit(registrationForm.$valid)">
+				novalidate ng-submit="submit(registrationForm)">
 				<div class="form-group">
 					<label for="username" class="control-label col-xs-2">User Name:</label>
 					<div class="col-xs-10">
 						<input type="text" class="form-control" name="username"
-							id="username" ng-model="registration.user.username"
+							id="username" ng-model="user.username"
 							placeholder="User Name" required />
 						<div ng-messages="registrationForm.username.$error"
 							ng-messages-include="./messages"></div>

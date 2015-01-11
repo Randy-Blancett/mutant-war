@@ -1,4 +1,5 @@
 <?php
+use midnightPublishing\mutantWar\controler\WebSwitch as WebSwitch;
 if (! defined ( "MP_AUTOLOADER_SET" ))
 {
     require_once __DIR__ . "/MP_Autoloader.php";
@@ -10,27 +11,4 @@ $strType = substr ( $strBaseRequest, 0, $intEndOfType );
 $strFile = substr ( $strBaseRequest, $intEndOfType );
 $strFile = trim ( $strFile, "/" );
 
-$strExt = "";
-switch ($strType)
-{
-    case "js" :
-        header ( 'Content-Type: application/javascript' );
-        $strFile = "js/" . $strFile;
-        $strExt = ".js";
-        break;
-    case "css" :
-        header ( 'Content-Type: text/css' );
-        $strFile = "css/" . $strFile;
-        $strExt = ".css";
-        break;
-    case "php" :
-        $strExt = ".php";
-        break;
-    default :
-        $strFile = trim ( $strType . "/" . $strFile, "/" );
-        $strExt = ".php";
-}
-
-// print ("file var: " . $strFile . "<br/>\n") ;
-
-PSR0Autoloader::includeFile ( $strFile . $strExt );
+PSR0Autoloader::includeFile ( WebSwitch::direct ( $strType, $strFile ) );

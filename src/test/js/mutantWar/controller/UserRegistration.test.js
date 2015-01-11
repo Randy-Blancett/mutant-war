@@ -15,7 +15,7 @@ describe('Unit Test registrationCtrl', function() {
 					var controller = $controller('registrationCtrl', {
 						$scope : $scope
 					});
-					controller.alert();
+					$scope.alert();
 				});
 	});
 
@@ -26,11 +26,11 @@ describe('Unit Test registrationCtrl', function() {
 				$scope : $scope
 			});
 
-			controller.user.username = "UserName1";
-			expect(controller.user.username).toEqual("UserName1");
+			$scope.user.username = "UserName1";
+			expect($scope.user.username).toEqual("UserName1");
 
-			controller.reset();
-			expect(controller.user.username).toEqual("");
+			$scope.reset();
+			expect($scope.user.username).toEqual("");
 		});
 	});
 });
