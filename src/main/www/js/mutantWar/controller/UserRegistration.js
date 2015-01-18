@@ -34,7 +34,7 @@ var RegistrationCtrl = function($scope, $http) {
 
 		var dataObject = model.user;
 
-		var responsePromise = $http.post("/user/", dataObject, {});
+		var responsePromise = $http.post("rest/user", dataObject, {});
 		responsePromise.success(function(dataFromServer, status, headers,
 				config) {
 			console.log(dataFromServer.title);

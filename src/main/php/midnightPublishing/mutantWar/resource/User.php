@@ -19,4 +19,13 @@ class User extends Resource
     {
         return new Response ( Response::OK, 'Example response' );
     }
+    
+    /**
+     *
+     * @method POST
+     */
+    function post()
+    {
+        return new Response ( Response::OK, 'Post Return' );
+    }
 }
