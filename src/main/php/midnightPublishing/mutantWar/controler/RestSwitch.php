@@ -4,32 +4,85 @@ namespace midnightPublishing\mutantWar\controler;
 
 use Tonic\Application as Application;
 use Tonic\Request as Request;
-// use midnightPublishing\mutantWar\resource\User as User;
+use Tonic\Response;
 
-require_once (dirname(__DIR__)."/resource/User.php");
-
-// print ("This is the RestSwitch") ;
-$app = new Application ( array (
-        'baseUri' => '/rest',
-        'mount' => array (
-                'User',
-                '/rest/user' ),
-        'load' => "../resource/*.php" ) );
-
-print_r ( $app );
-
-$request = new Request ( array (
-        'baseUri' => '/rest' ) );
-
-if (! strpos ( $request->uri, "rest" ))
+require_once (dirname ( __DIR__ ) . "/resource/User.php");
+/**
+ * Object to handle rest data processing
+ *
+ * @author darkowl
+ *        
+ */
+class RestSwitch
 {
-    print ("bad Uri") ;
-    return;
+    private static $app = null;
+    private static $request = null;
+    private static $resource = null;
+    private static $response = null;
+    private static $outputData = true;
+    
+    /**
+     * Initialize application
+     */
+    public static function init()
+    {
+        self::$app = new Application ( array (
+                'baseUri' => '/rest',
+                'load' => "../resource/*.php" ) );
+    }
+    /**
+     * Process the current rest data
+     */
+    public static function process()
+    {
+        self::$request = new Request ();
+        if (! strpos ( self::$request->uri, "rest" ))
+        {
+            return;
+        }
+        try
+        {
+            self::$resource = self::$app->getResource ( self::$request );
+            self::$response = self::$resource->exec ();
+        }
+        catch ( Exception $e )
+        {
+            print ("has Exception") ;
+            self::$response = new Response ( Response::BADREQUEST, $e->getMessage () );
+        }
+    }
+    /**
+     * Output the Resource
+     */
+    public static function output()
+    {
+        if (self::$outputData)
+        {
+            self::$response->output ();
+        }
+    }
+    /**
+     * Get the response
+     */
+    public static function getResponse()
+    {
+        return self::$response;
+    }
+    /**
+     * Get the application object
+     */
+    public static function getApp()
+    {
+        return self::$app;
+    }
+    /**
+     * Get set this to false if you do not want data output
+     */
+    public static function setShowOutput(
+                                        $boolShow = true)
+    {
+        self::$outputData = $boolShow;
+    }
 }
 
-print ("New Uri") ;
-
-$resource = $app->getResource ( $request );
-$response = $resource->exec ();
-$response->output ();
-
+RestSwitch::init ();

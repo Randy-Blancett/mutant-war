@@ -3,22 +3,20 @@
 namespace midnightPublishing\mutantWar\resource;
 
 use Tonic\Resource as Resource;
+use Tonic\Response as Response;
 
 /**
  * Single Snippet Resource
- * @uri /user
+ * @uri /rest/user
  */
 class User extends Resource
 {
-    function get(
-                $request)
+    /**
+     *
+     * @method GET
+     */
+    function get()
     {
-        $response = new Response ( $request );
-        $response->code = Response::OK;
-        $response->addHeader ( 'content-type', 'text/plain' );
-        
-        $response->body = "user resource";
-        
-        return $response;
+        return new Response ( Response::OK, 'Example response' );
     }
 }

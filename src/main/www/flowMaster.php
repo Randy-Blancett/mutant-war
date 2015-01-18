@@ -11,4 +11,8 @@ $strType = substr ( $strBaseRequest, 0, $intEndOfType );
 $strFile = substr ( $strBaseRequest, $intEndOfType );
 $strFile = trim ( $strFile, "/" );
 
-PSR0Autoloader::includeFile ( WebSwitch::direct ( $strType, $strFile ) );
+$strOutputLocation = WebSwitch::direct ( $strType, $strFile );
+if ($strOutputLocation != null)
+{
+    PSR0Autoloader::includeFile ( $strOutputLocation );
+}

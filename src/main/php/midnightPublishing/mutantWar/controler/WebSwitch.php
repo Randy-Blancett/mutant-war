@@ -2,6 +2,8 @@
 
 namespace midnightPublishing\mutantWar\controler;
 
+use midnightPublishing\mutantWar\controler\RestSwitch as RestSwitch;
+
 /**
  * This switch will control where web data will point to
  *
@@ -10,6 +12,7 @@ namespace midnightPublishing\mutantWar\controler;
  */
 class WebSwitch
 {
+    private static $outputData = true;
     /**
      * This will switch the output based on the input
      *
@@ -28,12 +31,12 @@ class WebSwitch
         switch ($strType)
         {
             case "js" :
-                header ( 'Content-Type: application/javascript' );
+                self::setHeader ( 'Content-Type: application/javascript' );
                 $strFile = "js/" . $strFile;
                 $strExt = ".js";
                 break;
             case "css" :
-                header ( 'Content-Type: text/css' );
+                self::setHeader ( 'Content-Type: text/css' );
                 $strFile = "css/" . $strFile;
                 $strExt = ".css";
                 break;
@@ -41,11 +44,29 @@ class WebSwitch
                 $strExt = ".php";
                 break;
             case "rest" :
-                return "midnightPublishing/mutantWar/controler/RestSwitch.php";
+                RestSwitch::process ();
+                RestSwitch::output ();
+                return null;
             default :
                 $strFile = trim ( $strType . "/" . $strFile, "/" );
                 $strExt = ".php";
         }
         return $strFile . $strExt;
+    }
+    public static function setHeader(
+                                    $strHeader)
+    {
+        if (self::$outputData)
+        {
+            header ( 'Content-Type: application/javascript' );
+        }
+    }
+    /**
+     * Get set this to false if you do not want data output
+     */
+    public static function setShowOutput(
+                                        $boolShow = true)
+    {
+        self::$outputData = $boolShow;
     }
 }
